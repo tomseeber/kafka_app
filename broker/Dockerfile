@@ -1,12 +1,12 @@
-FROM confluentinc/cp-zookeeper:7.5.0
+FROM confluentinc/cp-server
 
 ENV KAFKA_BROKER_ID=1
 ENV KAFKA_ZOOKEEPER_CONNECT=localhost:2181
 
 ENV KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://broker:9092
+ENV KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://localhost:9092
 ENV KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
 ENV KAFKA_TRANSACTION_STATE_LOG_MIN_ISR=1
 ENV KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR=1
 
-CMD ["kafka-topics", "--bootstrap-server", "broker:9092", "--create", "--partitions", "1", "--topic","latest_events"]
+CMD ["kafka-topics", "--bootstrap-server", "localhost:9092", "--create", "--partitions", "1", "--topic", "latest_events"]
